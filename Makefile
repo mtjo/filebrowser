@@ -30,7 +30,7 @@ clean:
 
 package: 
 	cp start_script build/
-	cp init.sh build/
+	cp startFileBrowser build/
 	cp -rf bin/* build/bin/
 	cp -rf etc/* build/etc/
 	$(ROOTDIR)/plugin_packager_x64

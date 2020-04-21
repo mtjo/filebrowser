@@ -1,0 +1,35 @@
+#!/bin/ash
+model=$(cat /proc/xiaoqiang/model)
+setconfig model $model
+port=$(getconfig port)
+if [[ -z "$port" ]]; then
+	#statements
+	port=8088
+	setconfig port $port
+fi
+
+
+#start filebrowser
+/bin/filebrowser -c /etc/filebrowser.json -p $port /dev/null 2>&1
+
+ps|grep filebrowser |grep -v grep|awk '{print $1}'|xargs echo >pid
+enable="on"
+setconfig enable on
+while [[ "$enable" == "on" ]]; do
+	#statements
+	# PID=$(pidof filebrowser);
+	# if [[ "$pid" == "$PID" ]]; then
+	# 	echo $PID >>aaa.log
+	# else
+	# 	setconfig PID $PID
+	# 	pid=$PID
+	# fi
+	
+	enable=$(getconfig enable)
+	ps|grep filebrowser |grep -v grep|awk '{print $1}'|xargs echo >aaa.log
+	sleep 3
+done
+
+killall filebrowser
+echo "stopFileBrowser" >> aaa.log
+exit 0
