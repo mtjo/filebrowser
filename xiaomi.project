@@ -1,0 +1,62 @@
+#请输入插件ID。
+plugin_id= "2882303761518373345";
+
+#请输入插件名称。
+name= "File Browser";
+
+#请输入插件介绍。
+introduction= "File Browser 是一个基于 Web 的文件管理器。它可以使你随时随地的对设备的文件进行基本的管理操作，如：创建、删除、移动、复制等。它除了可以让你进行文件管理之外，还有一些其他的功能。它支持多个用户的管理，而且每个用户可以拥有自己可以访问的文件和权限。它还支持文件分享，就行网盘那样，你可以通过它来向你的朋友分享文件。你还可以用它来执行一些 Linux 命令，比如你想要在当前目录下克隆一个代码库，就可以用它来执行git等命令";
+
+#请输入插件简介。
+summary= "File Browser 是一个基于 Web 的文件管理器。";
+
+#已安装插件图标URL。
+installed_icon= "https://file.static.xiaomi.net/download/AppStore/0f5b6b49544614fce07eaa5841999e822d488f6ef";
+
+#插件详情图标URL。
+detail_image= "https://file.static.xiaomi.net/download/AppStore/0f5b6b49544614fce07eaa5841999e822d488f6ef";
+
+#可安装插件图标URL。
+market_icon="https://file.static.xiaomi.net/download/AppStore/0f5b6b49544614fce07eaa5841999e822d488f6ef";
+
+#开发者名称。
+developer= "MTJO";
+
+#请输入插件版本号(格式：xx.xx.xx)。
+version= "1.0.1";
+
+#请输入插件控制页面url。
+control_url= "http://mtjo.net/filebrowser/index.html";
+
+#请输入打包目录(如果插件没有可执行文件，可不用填写)。
+zip_path= "./build/";
+
+#请输入开发者证书文件路径。
+pem_path= "./key/159737223.pem";
+
+#请输入私钥文件路径。
+key_path= "./key/client.key";
+
+#请输入sdk level。
+sdk_level= "5";
+
+#是否支持R1D
+supported_rom= "miwifi_rom";
+
+#是否需要访问公共存储目录
+access_userdata= "true";
+
+access_proc = "true";
+
+access_dev = "true";
+
+#是否需要支持"下载"功能，此项为true才能够使用下载相关的sdk
+support_download= "false";
+
+support_vpn_operation= "false";
+
+#是否需要支持"已连接的设备信息"，此项为true才能够使用链接设备信息相关的sdk
+support_connected_device_info= "false"
+
+#是否需要支持"访问U盘"，此项为true才能够使用访问U盘相关的sdk
+support_usb_disk_mount= "true"

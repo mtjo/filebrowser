@@ -1,0 +1,22 @@
+{
+  "port": 8080,
+  "root":"/userdata",
+  "noAuth": false,
+  "baseURL": "",
+  "address": "0.0.0.0",
+  "reCaptchaKey": "",
+  "reCaptchaSecret": "",
+  "database":"/filebrowser.db",
+  "log": "stdout",
+  "plugin": "",
+  "scope":"/root",
+  "allowCommands": true,
+  "allowEdit": true,
+  "allowNew": true,
+  "commands": [
+    "git",
+    "svn",
+    "ls",
+    "cd"
+  ]
+}
