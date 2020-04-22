@@ -1,4 +1,5 @@
 #!/bin/ash
+echo "start " >filebrowser.log
 model=$(cat /proc/xiaoqiang/model)
 setconfig model $model
 port=$(getconfig port)
@@ -9,27 +10,41 @@ if [[ -z "$port" ]]; then
 fi
 
 
+filebrowser='/bin/filebrowser'
+xq=$(cat /proc/xiaoqiang/model)
+if [ "$xq" == "R1D" -o "$xq" == "R2D" -o "$xq" == "R3D"  ]; then
+	filebrowser='/bin/filebrowser'
+elif [ "$xq" == "R3" -o "$xq" == "R3P" -o "$xq" == "R3G" -o "$xq" == "R1CM" ]; then
+	filebrowser='/bin/filebrowser_mips'
+fi
 #start filebrowser
-/bin/filebrowser -c /etc/filebrowser.json -p $port /dev/null 2>&1
+echo "start $filebrowser with port: $port" >>filebrowser.log
+$filebrowser -c /etc/filebrowser.json -p $port /dev/null 2>&1
 
-ps|grep filebrowser |grep -v grep|awk '{print $1}'|xargs echo >pid
+PID=$(ps|grep $filebrowser |grep -v grep|awk '{print $1}')
+echo "pid of filebrowser: $PID" >>filebrowser.log
+
+#setconfig enable on
 enable="on"
-setconfig enable on
+echo "start while" >>filebrowser.log
 while [[ "$enable" == "on" ]]; do
 	#statements
-	# PID=$(pidof filebrowser);
-	# if [[ "$pid" == "$PID" ]]; then
-	# 	echo $PID >>aaa.log
-	# else
-	# 	setconfig PID $PID
-	# 	pid=$PID
-	# fi
-	
 	enable=$(getconfig enable)
-	ps|grep filebrowser |grep -v grep|awk '{print $1}'|xargs echo >aaa.log
+	if [[ -z "$port" ]]; then
+	    setconfig enable on   
+	fi
+	echo "enable: $enable" >>filebrowser.log
 	sleep 3
 done
+echo "end while" >> filebrowser.log
 
-killall filebrowser
-echo "stopFileBrowser" >> aaa.log
-exit 0
+echo "pid of filebrowser to kill: $PID" >>filebrowser.log
+kill $PID 
+/bin/killall $filebrowser
+
+echo "end kill" >>filebrowser.log 
+
+echo "pid of $$ startFileBrowser to kill" >>filebrowser.log 
+kill $$                           
+echo "stopFileBrowser" >> filebrowser.log
+#exit 0

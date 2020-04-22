@@ -11,7 +11,7 @@
 <body>
 <div id="container">
     <header>
-        <img src="resource/img/pic_1.jpg" alt="Mac备份助手">
+        <img src="resource/img/pic_1.jpg" alt="File Browser">
     </header>
     <section>
         <h1>File Browser</h1>
@@ -34,7 +34,7 @@
     </div>
     <h2>使用帮助：</h2>
     <ol>
-        <li>1: File Browser 是一个基于 Web 的文件管理器。它可以使你随时随地的对设备的文件进行基本的管理操作，如：创建、删除、移动、复制等。它除了可以让你进行文件管理之外，还有一些其他的功能。它支持多个用户的管理，而且每个用户可以拥有自己可以访问的文件和权限。它还支持文件分享，就行网盘那样，你可以通过它来向你的朋友分享文件。你还可以用它来执行一些 Linux 命令，比如你想要在当前目录下克隆一个代码库，就可以用它来执行git等命令。</li>
+        <li>1: File Browser 是一个基于 Web 的文件管理器，支持多个用户的管理，且每个用户可以拥有自己可以访问的文件和权限。还支持文件分享，是个功能强大的个人网盘.</li>
         <li>2: 插件启用后可以通过 http://路由IP地址:端口 访问，（默认账号和密码都是admin，登录后自行修改）</li>
         <li>3: 建议配置 Frpc 插件使用,可以实现公网域名访问</li>
 
@@ -206,7 +206,7 @@
             success: function (data) {
                 data = $.parseJSON(data);
                 if (data.code == 0) {
-                    toast('设置成功');
+                    //toast('设置成功');
                     //location.reload(1);
                 } else {
                     toast(data.msg);

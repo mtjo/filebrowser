@@ -22,7 +22,7 @@ ol,ul,li { margin: 0; padding: 0;list-style: none;  }
 ol{margin:0 10px; padding:0 0 0 6px;}
 ol li{padding: 0; margin: 0; line-height: 1.5em; margin: 0 0 8px 0; color: #404040; font-size: 14px;}
 
-.loading{background: black; height: 40px; width: 100px; line-height: 40px; position: absolute; bottom: 40px; margin:0 auto; color: #fff; text-align: center; left: 50%; margin-left: -50px; -webkit-transition:all ease-out .2s; opacity: 0;}
+.loading{background: black; height: 40px; width: 100px; line-height: 40px; position: absolute; bottom: 40px; margin:0 auto; color: #fff; text-align: center; left: 50%; margin-left: -50px; -webkit-transition:all ease-out .2s; opacity: 0.5;}
 .bkspaceshow  { margin: 10px;}
 .btn-group {overflow: hidden; overflow: hidden; border: 1px #2288dd solid; border-radius: 5px; background: #fff;}
 .btn-group .btn {float: left; -webkit-box-sizing:border-box; width: 25%; border-left: 1px #2288dd solid;

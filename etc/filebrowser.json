@@ -1,6 +1,6 @@
 {
   "port": 8080,
-  "root":"/userdata",
+  "root":"/",
   "noAuth": false,
   "baseURL": "",
   "address": "0.0.0.0",
@@ -9,7 +9,7 @@
   "database":"/filebrowser.db",
   "log": "stdout",
   "plugin": "",
-  "scope":"/root",
+  "scope":"/userdata",
   "allowCommands": true,
   "allowEdit": true,
   "allowNew": true,
