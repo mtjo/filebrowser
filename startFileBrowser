@@ -20,7 +20,7 @@ app_path='/bin/filebrowser'
 if [ "$model" == "R1D" -o "$model" == "R2D" -o "$model" == "R3D"  ]; then
 	app_path='/bin/filebrowser'
 elif [ "$model" == "R3" -o "$model" == "R3P" -o "$model" == "R3G" -o "$model" == "R1CM" ]; then
-	app_path='/bin/filebrowser'
+	app_path='/bin/filebrowser_mips'
 fi
 
 $app_path -c filebrowser.json -p $port &

@@ -1,6 +1,6 @@
 {
   "port": 8080,
-  "root":"/",
+  "root":"/userdata",
   "noAuth": false,
   "baseURL": "",
   "address": "0.0.0.0",
