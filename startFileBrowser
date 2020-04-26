@@ -1,5 +1,10 @@
 #!/bin/ash
-echo "start " >filebrowser.log
+pidof(){
+	ps|grep "$@" |grep -v grep|awk '{print $1}'
+}
+
+logpath='/filebrowser.log'
+echo "start " >$logpath
 model=$(cat /proc/xiaoqiang/model)
 setconfig model $model
 port=$(getconfig port)
@@ -7,44 +12,52 @@ if [[ -z "$port" ]]; then
 	#statements
 	port=8088
 	setconfig port $port
+	setconfig enable on
 fi
 
 
-filebrowser='/bin/filebrowser'
-xq=$(cat /proc/xiaoqiang/model)
-if [ "$xq" == "R1D" -o "$xq" == "R2D" -o "$xq" == "R3D"  ]; then
-	filebrowser='/bin/filebrowser'
-elif [ "$xq" == "R3" -o "$xq" == "R3P" -o "$xq" == "R3G" -o "$xq" == "R1CM" ]; then
-	filebrowser='/bin/filebrowser_mips'
+app_path='/bin/filebrowser'
+if [ "$model" == "R1D" -o "$model" == "R2D" -o "$model" == "R3D"  ]; then
+	app_path='/bin/filebrowser'
+elif [ "$model" == "R3" -o "$model" == "R3P" -o "$model" == "R3G" -o "$model" == "R1CM" ]; then
+	app_path='/bin/filebrowser'
 fi
-#start filebrowser
-echo "start $filebrowser with port: $port" >>filebrowser.log
-$filebrowser -c /etc/filebrowser.json -p $port /dev/null 2>&1
 
-PID=$(ps|grep $filebrowser |grep -v grep|awk '{print $1}')
-echo "pid of filebrowser: $PID" >>filebrowser.log
+$app_path -c filebrowser.json -p $port &
+
+PID=$(pidof $app_path)
+echo "pid of $app_path : $PID" >>$logpath
 
 #setconfig enable on
 enable="on"
-echo "start while" >>filebrowser.log
+echo "start while" >>$logpath
 while [[ "$enable" == "on" ]]; do
 	#statements
 	enable=$(getconfig enable)
-	if [[ -z "$port" ]]; then
-	    setconfig enable on   
+	#echo "plugin is enable: $enable" >>$logpath
+	newport=$(getconfig port)
+	if [[  "$port" != "$newport" ]]; then
+		echo "port: $port change to: $newport" >>$logpath
+		echo "kill old pid: $PID " >>$logpath
+		kill $PID
+		echo "start new $app_path" >>$logpath
+		port="$newport"
+		$app_path -c filebrowser.json -p $newport &
 	fi
-	echo "enable: $enable" >>filebrowser.log
+
+	PID=$(pidof $app_path)
+	#echo "pid of $app_path : $PID" >>$logpath
 	sleep 3
 done
-echo "end while" >> filebrowser.log
+echo "end while" >> $logpath
 
-echo "pid of filebrowser to kill: $PID" >>filebrowser.log
-kill $PID 
-/bin/killall $filebrowser
+#kill $PID
+echo "pid of $app_path to kill: $PID" >>$logpath
+kill $PID
 
-echo "end kill" >>filebrowser.log 
+echo "end kill" >>$logpath
 
-echo "pid of $$ startFileBrowser to kill" >>filebrowser.log 
-kill $$                           
-echo "stopFileBrowser" >> filebrowser.log
+echo "pid of $0 to kill: $$" >>$logpath
+kill $$
+echo "stop $app_path" >> $logpath
 #exit 0
