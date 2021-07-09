@@ -11,13 +11,13 @@ introduction= "File Browser 是一个基于 Web 的文件管理器。它可以�
 summary= "File Browser 是一个基于 Web 的文件管理器。";
 
 #已安装插件图标URL。
-installed_icon= "https://file.static.xiaomi.net/download/AppStore/0f5b6b49544614fce07eaa5841999e822d488f6ef";
+installed_icon= "http://file.market.xiaomi.com/download/AppStore/010bc3260b1d446d29d17962ab64f117d3687d820";
 
 #插件详情图标URL。
-detail_image= "https://file.static.xiaomi.net/download/AppStore/0f5b6b49544614fce07eaa5841999e822d488f6ef";
+detail_image= "http://file.market.xiaomi.com/download/AppStore/07651cabb41f44775bb861feea77253ed46a4ee4e";
 
 #可安装插件图标URL。
-market_icon="https://file.static.xiaomi.net/download/AppStore/0f5b6b49544614fce07eaa5841999e822d488f6ef";
+market_icon="http://file.market.xiaomi.com/download/AppStore/086bbb27507a64dc4bc39838f844bcf285244f8cd";
 
 #开发者名称。
 developer= "MTJO";
@@ -26,7 +26,7 @@ developer= "MTJO";
 version= "1.0.1";
 
 #请输入插件控制页面url。
-control_url= "http://mtjo.net/filebrowser/index.html";
+control_url= "http://r2d.mtjo.net/filebrowser/index.html";
 
 #请输入打包目录(如果插件没有可执行文件，可不用填写)。
 zip_path= "./build/";

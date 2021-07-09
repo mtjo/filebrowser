@@ -16,8 +16,8 @@ LDFLAGS = -Wall -O2 -lxmrouter -lthrift -lssl -lcrypto -lconfig++ -ljson-c \
 
 dir : 
 	mkdir -p $(BUILDDIR)
-	mkdir -p $(BUILDDIR)bin
-	mkdir -p $(BUILDDIR)etc
+	#mkdir -p $(BUILDDIR)bin
+	#mkdir -p $(BUILDDIR)etc
 
 
 #makebinary :
@@ -31,6 +31,6 @@ clean:
 package: 
 	cp start_script build/
 	cp startFileBrowser build/
-	cp -rf bin/* build/bin/
-	cp -rf etc/* build/etc/
+	cp -rf bin/* build/
+	cp -rf etc/* build/
 	$(ROOTDIR)/plugin_packager_x64
