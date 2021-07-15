@@ -85,7 +85,6 @@ if [[ -z "$port" ]]; then
 	setconfig enable on
 fi
 
-#setconfig enable on
 enable="on"
 while [[ "$enable" == "on" ]]; do
 	#statements
@@ -95,7 +94,8 @@ while [[ "$enable" == "on" ]]; do
 		killall /filebrowser
 		port="$newport"
 		resetconfig $port
-		/filebrowser -c filebrowser.json &
+    #开子进程偶尔成功，大多数情况是失败因故去掉
+		#/filebrowser -c filebrowser.json &
 	fi
 	sleep 3
 done
