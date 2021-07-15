@@ -1,5 +1,5 @@
 BUILDDIR := ./build/
-BINARY = $(BUILDDIR)Frpc
+BINARY = $(BUILDDIR)FileBrowser
 
 all : dir package
 
@@ -28,9 +28,19 @@ clean:
 
 .PHONY : clean TaskWatcher
 
+
+mips : dir packagemips
+
+packagemips: 
+	cp start_script build/
+	cp -rf bin/filebrowser_mips build/filebrowser
+	cp -rf script/* build/
+	cp -rf etc/* build/
+	$(ROOTDIR)/plugin_packager_x64
+
 package: 
 	cp start_script build/
-	cp startFileBrowser build/
-	cp -rf bin/* build/
+	cp -rf bin/filebrowser build/
+	cp -rf script/* build/
 	cp -rf etc/* build/
 	$(ROOTDIR)/plugin_packager_x64

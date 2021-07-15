@@ -24,8 +24,57 @@ urldecode(){
 	awk 'BEGIN{for(i=0;i<10;i++)hex[i]=i;hex["A"]=hex["a"]=10;hex["B"]=hex["b"]=11;hex["C"]=hex["c"]=12;hex["D"]=hex["d"]=13;hex["E"]=hex["e"]=14;hex["F"]=hex["f"]=15;}{gsub(/\+/," ");i=$0;while(match(i,/%../)){;if(RSTART>1);printf"%s",substr(i,1,RSTART-1);printf"%c",hex[substr(i,RSTART+1,1)]*16+hex[substr(i,RSTART+2,1)];i=substr(i,RSTART+RLENGTH);}print i;}'
 }
 
-logpath='/filebrowser.log'
-echo "start " >$logpath
+resetconfig(){
+port=$1
+cat << EOF > /filebrowser.json
+{
+  "port": $port,
+  "root":"/userdata",
+  "noAuth": false,
+  "baseURL": "",
+  "address": "0.0.0.0",
+  "reCaptchaKey": "",
+  "reCaptchaSecret": "",
+  "database":"/filebrowser.db",
+  "log": "stdout",
+  "plugin": "",
+  "scope":"/userdata",
+  "allowCommands": true,
+  "allowEdit": true,
+  "allowNew": true,
+  "commands": [
+    "ash",
+    "awk",
+    "busybox",
+    "cat",
+    "chmod",
+    "chown",
+    "grep",
+    "kill",
+    "killall",
+    "ls",
+    "lua",
+    "mkdir",
+    "mount",
+    "ping",
+    "plugin_action",
+    "plugin_download",
+    "ps",
+    "rm",
+    "sed",
+    "sh",
+    "sleep",
+    "taskmonitorDaemon",
+    "top",
+    "git",
+    "svn",
+    "ls",
+    "cd"
+  ]
+}
+EOF
+}
+
 model=$(cat /proc/xiaoqiang/model)
 setconfig model $model
 port=$(getconfig port)
@@ -36,49 +85,17 @@ if [[ -z "$port" ]]; then
 	setconfig enable on
 fi
 
-
-app_path='/filebrowser'
-if [ "$model" == "R1D" -o "$model" == "R2D" -o "$model" == "R3D"  ]; then
-	app_path='/filebrowser'
-elif [ "$model" == "R3" -o "$model" == "R3P" -o "$model" == "R3G" -o "$model" == "R1CM" ]; then
-	app_path='/filebrowser_mips'
-fi
-
-$app_path -c /filebrowser.json -p $port &
-
-PID=$(pidof $app_path)
-echo "pid of $app_path : $PID" >>$logpath
-
 #setconfig enable on
 enable="on"
-echo "start while" >>$logpath
 while [[ "$enable" == "on" ]]; do
 	#statements
 	enable=$(getconfig enable)
-	#echo "plugin is enable: $enable" >>$logpath
 	newport=$(getconfig port)
 	if [[  "$port" != "$newport" ]]; then
-		echo "port: $port change to: $newport" >>$logpath
-		echo "kill old pid: $PID " >>$logpath
-		kill $PID
-		echo "start new $app_path" >>$logpath
+		killall /filebrowser
 		port="$newport"
-		$app_path -c filebrowser.json -p $newport &
+		resetconfig $port
+		/filebrowser -c filebrowser.json &
 	fi
-
-	PID=$(pidof $app_path)
-	#echo "pid of $app_path : $PID" >>$logpath
 	sleep 3
 done
-echo "end while" >> $logpath
-
-#kill $PID
-echo "pid of $app_path to kill: $PID" >>$logpath
-kill $PID
-
-echo "end kill" >>$logpath
-
-echo "pid of $0 to kill: $$" >>$logpath
-kill $$
-echo "stop $app_path" >> $logpath
-#exit 0

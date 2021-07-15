@@ -1,5 +1,12 @@
+#!/bin/ash
+getconfig() {
+	grep "key$1" /etc/plugin_config |awk -F '=' '{print $2}'|awk '{print substr($1,2)}'|awk '{print substr($1,1,length($1)-2)}'
+}
+resetconfig(){
+port=$1
+cat << EOF > /filebrowser.json
 {
-  "port": 8088,
+  "port": $port,
   "root":"/userdata",
   "noAuth": false,
   "baseURL": "",
@@ -43,3 +50,8 @@
     "cd"
   ]
 }
+EOF
+}
+
+port=$(getconfig port)
+resetconfig $port

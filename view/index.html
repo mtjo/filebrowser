@@ -36,8 +36,8 @@
     <ol>
         <li>1: File Browser 是一个基于 Web 的文件管理器，支持多个用户的管理，且每个用户可以拥有自己可以访问的文件和权限。还支持文件分享，是个功能强大的个人网盘.</li>
         <li>2: 插件启用后可以通过 http://路由IP地址:端口 访问，（<font color="red">默认账号和密码都是admin</font>，登录后自行修改）</li>
-        <li>3: <font color="green">建议配置 Frpc 插件使用,可以实现公网域名访问</font></li>
-        <li>4: 有问题请在请github提issues <a href="https://github.com/mtjo/filebrowser">github.com/mtjo/frpc-mirouter</a></li>
+        <li>3: <font color="green">建议配合 Frpc 插件使用,可以实现公网域名访问</font></li>
+        <li>4: 有问题请在请github提issues <a href="https://github.com/mtjo/filebrowser">github.com/mtjo/filebrowser</a></li>
         <li>5: <a href="https://github.com/mtjo/filebrowser">★ Star & fork 点起来，方便后期更新版本</a></li>
     </ol>
 </div>
@@ -145,6 +145,7 @@
             }
         });
     }
+    
 
     function toggleStatus(evt) {
         var target = evt.target;
@@ -221,7 +222,7 @@
     
 
     function setPort(port) {
-        toast('正在重启服务进程...');
+        toast('正在提交设置...');
         var url = '/api-third-party/service/datacenter/set_config';
         var data = {
             appId: appId,
@@ -237,7 +238,11 @@
                 data = $.parseJSON(data);
                 if (data.code == 0) {
                     toast('设置成功');
-                    location.reload(1);
+                    $('#bkspace').html(port);                  
+                    $('.bkspaceset').toggle();
+                    $('.mask').toggle();
+                    toast("请手动重启服务使设端口生效，或重启路由生效");
+                    $(".toggle-container").before("<span style='color:red; position: absolute;right: 56px;top: 0px;'>重启服务使设端口生效</span>");     
                 } else {
                     toast(data.msg);
                 }

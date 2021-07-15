@@ -1,1 +1,5 @@
-RUN startFileBrowser
+RUN initFileBrowser 
+RUN filebrowser -c filebrowser.json
+STOP killall filebrowser
+STOP killall initFileBrower
+STOPPED resetport
